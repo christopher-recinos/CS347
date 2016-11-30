@@ -1,0 +1,43 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+       <!-- This interceptor stops a user from hacking the session object --> 
+        <interceptors>
+            <interceptor-stack name="appDefault">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <param name="params.excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="appDefault" />
+        <!-- The Actions begin here -->
+        <action name="viewpost" class="action.FetchPost">
+            <result name="success">post.jsp?postId=%{postId}</result>
+        </action>
+        <action name="submitComment" class="action.SubmitComment">
+            <result name="success">post.jsp?postId=%{postId}</result>
+        </action>
+        <action name="textresult" class="action.TextResult">
+            <result name="success" type="stream"></result>
+            <result name="error">error.jsp</result>
+        </action>
+        <action name="upvote" class="ajax.UpVoting">
+            <result name="success" type="stream"></result>
+            <result name="error">error.jsp</result>
+        </action>
+        <action name="downvote" class="ajax.DownVoting">
+            <result name="success" type="stream"></result>
+            <result name="error">error.jsp</result>
+        </action>
+        <action name="home" class="action.FetchHomePage">
+            <result name="success">home.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+    </package>
+</struts>

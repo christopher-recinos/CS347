@@ -1,0 +1,157 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 9, 2016, 7:41:22 PM
+    Author     : greatwmc
+*/
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 20px;
+    height: 100%; /* needed for container min-height */
+}
+div#container {
+    position: relative; /* needed for footer positioning*/
+    height: auto !important; /* real browsers */
+    min-height: 100%; /* real browsers */
+    max-width: 100%;
+    background-color:#dddddd;
+}
+
+div#header {
+    margin-top: 2em;
+}
+
+div#content {
+    //margin-bottom: 3em;
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 90%;
+}
+
+div.wrapper {
+    background-color:#ffffff;
+    width: 90%;
+    min-height: 50%;
+}
+
+div#topContent {
+    margin-right: 4em;
+    margin-left: 4em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+div#bottomContent {
+    margin-right: 4em;
+    margin-left: 4em;
+    padding-top: 1em;
+    padding-bottom: 3.5em;
+}
+
+div#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0; /* stick to bottom */
+    background: #ddd;
+}
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid green;
+    margin-bottom: 3px;
+}
+
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #990000;
+    margin-top: 3px;
+}
+
+
+.floating-box {
+    display: inline-block;
+    max-height: 60px;
+    margin-bottom: 3px;
+    border: 1px solid #dddddd;
+    border-left: solid transparent;
+    border-right: solid transparent;
+    border-bottom: solid transparent;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.comment
+{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    display: inline-block;
+}
+
+.wwFormTable
+{
+    width: 100%;
+}
+
+.arrows {
+    display: inline-block;
+}
+
+
+ul.topbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #450084;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+ul.bottombar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #450084;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #CBB677;
+}
+
+li:last-child {
+    border-right: none;
+}

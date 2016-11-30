@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" 
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+   <!--<welcome-file-list>
+        <welcome-file>post.html</welcome-file>
+    </welcome-file-list> -->
+    <env-entry>
+        <env-entry-name>DriverClassName</env-entry-name>
+        <env-entry-value>com.mysql.jdbc.Driver</env-entry-value>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>Url</env-entry-name>
+        <!--<env-entry-value>jdbc:mysql://localhost:3306/team27_db</env-entry-value> -->
+        <env-entry-value>jdbc:mysql://grove.cs.jmu.edu:3306/team27_db</env-entry-value>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>UserId</env-entry-name>
+        <env-entry-value>team27</env-entry-value>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>Password</env-entry-name>
+        <env-entry-value>nov#mber5</env-entry-value>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+</web-app>

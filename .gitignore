@@ -1,5 +1,8 @@
-.~lock
+.lock
 .DS_Store
 .DS_Store?
 .git
 
+/JMU-Share/build/
+/JMU-Share/dist/
+/JMU-Share/nbproject/private/
