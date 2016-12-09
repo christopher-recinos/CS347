@@ -69,7 +69,7 @@ public class Post {
         this.title = title;
     }
 
-    public Post(Integer id, Integer authorId, Integer classId, String contentBody, Float rating, Integer endorse, String notes_desc) {
+    public Post(Integer id, Integer authorId, Integer classId, String contentBody, Float rating, Integer endorse, String notes_desc) throws SQLException {
         this.id = id;
         this.authorId = authorId;
         this.classId = classId;
@@ -81,7 +81,7 @@ public class Post {
         getDerivedValues(); 
     }
     
-    public void getDerivedValues()
+    public void getDerivedValues() throws SQLException
     {
         DBHandler db = new DBHandler();
         this.authorName = db.getAuthorName(authorId);

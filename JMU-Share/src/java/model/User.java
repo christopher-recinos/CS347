@@ -11,6 +11,7 @@ public class User {
     private String email, name, username, password;
     private boolean isProfessor;
     private int roleId, schoolId;
+    private int id;
 
     /*
      * Initialize a User object
@@ -30,6 +31,24 @@ public class User {
         this.isProfessor = isProfessor;
         this.roleId = roleId;
         this.schoolId = schoolId;
+    }
+
+    public User(int id, String email, String name, String username, boolean isProfessor, int roleId, int schoolId) {
+        this.email = email;
+        this.name = name;
+        this.username = username;
+        this.isProfessor = isProfessor;
+        this.roleId = roleId;
+        this.schoolId = schoolId;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -64,7 +83,7 @@ public class User {
         this.username = username;
     }
 
-    public boolean isProfessor() {
+    public boolean getIsProfessor() {
         return isProfessor;
     }
 

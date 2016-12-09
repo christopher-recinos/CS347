@@ -5,24 +5,21 @@
  */
 package action;
 
-import com.opensymphony.xwork2.interceptor.ParameterNameAware;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import model.DBHandler;
 import model.Post;
-import org.apache.struts2.interceptor.SessionAware;
 
 /**
  *
  * @author greatwmc
  */
-public class FetchHomePage implements SessionAware, ParameterNameAware {
+public class FetchHomePage extends FetchSessionAware{
 
     ArrayList<Post> userPosts;
     ArrayList<Class> classes;
     ArrayList<Post> favoriteNotes;
-
-    private Map<String, Object> session;
 
     public ArrayList<Post> getUserPosts() {
         return userPosts;
@@ -48,7 +45,7 @@ public class FetchHomePage implements SessionAware, ParameterNameAware {
         this.favoriteNotes = favoriteNotes;
     }
 
-    public String execute() {
+    public String execute() throws SQLException {
         DBHandler db = new DBHandler();
         Object ses = session.get("userId");
         Integer is = (Integer) ses;
@@ -56,31 +53,5 @@ public class FetchHomePage implements SessionAware, ParameterNameAware {
         //classes = db.getClassesForUser(userId);
         //favoriteNotes = db.getUserFavorites(userId);
         return "success";
-    }
-
-    /**
-     * This allows access to the session so that the userId can be accessed
-     * @param session 
-     */
-    public void setSession(Map<String, Object> session) {
-
-        this.session = session;
-    }
-
-    /**
-     * This stops the user from hacking the URL request parameters
-     * @param parameterName
-     * @return 
-     */
-    public boolean acceptableParameterName(String parameterName) {
-
-        boolean allowedParameterName = true;
-
-        if (parameterName.contains("session") || parameterName.contains("request")) {
-
-            allowedParameterName = false;
-
-        }
-        return allowedParameterName;
     }
 }

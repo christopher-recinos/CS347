@@ -39,7 +39,7 @@ public class User_DB {
             username = user.getUsername();
             password = user.getPassword();
             email = user.getEmail();
-            isProfessor = user.isProfessor();
+            isProfessor = user.getIsProfessor();
             roleId = user.getRoleId();
             schoolId = user.getSchoolId();
 
@@ -130,8 +130,8 @@ public class User_DB {
     }
 
     /**
-     * This method will return the User that corresponds to id, or null if no
-     * user corresponds to the id
+     * This method will return the User that corresponds to username and password, or null if no
+     * user corresponds to the username and password
      *
      * @param username, the username of the User being searched for
      * @param email, the email of the User being searched for
@@ -156,15 +156,16 @@ public class User_DB {
         if (rs.next()) {
             String email, name;
             boolean isProfessor;
-            int roleId, schoolId;
+            int roleId, schoolId, id;
 
             email = rs.getString(3);
             name = rs.getString(4);
             roleId = rs.getInt(6);
             isProfessor = rs.getBoolean(7);
             schoolId = rs.getInt(8);
+            id = rs.getInt("id");
 
-            retUser = new User(password, email, name, username, roleId, isProfessor, schoolId);
+            retUser = new User(id, email, name, username, isProfessor, roleId, schoolId);
         }
         return retUser;
     }
@@ -305,4 +306,5 @@ public class User_DB {
         
         return emailFound;
     }
+
 }

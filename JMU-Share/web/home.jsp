@@ -19,11 +19,7 @@
             <div id="header">
                 <jsp:include page='menubar.jsp'/>
             </div>
-            <% //Set Default session attribute userId for testing
-                if (session.getAttribute("userId") == null) {
-                    session.setAttribute("userId", 1);
-                }
-            %>
+
 
             <div id="content">
                 <div class="wrapper">

@@ -14,6 +14,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="viewpost?postId=1">View All Comments</a>
+        <a href="viewpost?postId=1">View All Comments</a><br/>
+        <a href="profile?userId=1">View Profile 1</a><br/>
+        <a href="profile?userId=5">View Profile 2</a><br/>
+        <a href="profile">View Profile No User specified</a><br/>
     </body>
 </html>

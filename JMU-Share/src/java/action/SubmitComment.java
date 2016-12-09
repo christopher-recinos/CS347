@@ -32,7 +32,7 @@ public class SubmitComment extends ActionSupport {
         Comment newComment = new Comment(authorId, postId, comment);
         db.insertComment(newComment);
         //Now load the post again with the updated data
-        post = db.getPost(postId);
+        post = db.getPostFromId(postId);
         commentsList = postId != null ? db.getPostComments(postId) : db.getPostComments(sesPostId);
         return "success";
     }

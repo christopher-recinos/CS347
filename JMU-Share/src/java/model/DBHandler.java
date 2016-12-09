@@ -200,7 +200,7 @@ public class DBHandler {
         }
     }
 
-    public Post getPost(int post_id) {
+    public Post getPostFromId(int post_id) {
         Post post = null;
         try {
             if (!isOpen) {
@@ -308,9 +308,8 @@ public class DBHandler {
         return score;
     }
 
-    public ArrayList<Post> getPostsWritenByUser(Integer userId) {
+    public ArrayList<Post> getPostsWritenByUser(Integer userId) throws SQLException {
         ArrayList<Post> userPosts = new ArrayList();
-        try {
             if (!isOpen) {
                 open();
             }
@@ -323,17 +322,14 @@ public class DBHandler {
             while (rs.next()) {
                 userPosts.add(new Post(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
         return userPosts;
     }
 
-    String getClassName(Integer classId) {
+    String getClassName(Integer classId) throws SQLException {
         String sql;
         PreparedStatement ps;
         String className = "NO CLASS NAME";
-        try {
             if (!isOpen) {
                 open();
             }
@@ -341,13 +337,65 @@ public class DBHandler {
             ps = con.prepareStatement(sql);
             ps.setInt(1, classId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 className = rs.getString(1);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return className;
+    }
+
+    public Role getRoleFromId(int roleId) throws SQLException {
+        String sql = "SELECT * FROM role WHERE id = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, roleId);
+        ResultSet rs = ps.executeQuery();
+        Role role = null;
+        String role_name;
+
+        if (rs.next()) {
+            role_name = rs.getString("role_name");
+            role = new Role(role_name, roleId);
+        }
+        return role;
+    }
+
+    public School getSchoolFromId(int schoolId) throws SQLException {
+        if (!isOpen) {
+            open();
+        }
+        String name = "No School For This ID" + schoolId;
+        School school = null;
+        String sql = "SELECT school FROM school WHERE id = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, schoolId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            name = rs.getString("school");
+        }
+        school = new School(schoolId, name);
+        return school;
+    }
+
+    public User getUserFromId(Integer userId) throws SQLException {
+        String email, name, username;
+        boolean isProfessor;
+        int roleId, schoolId;
+        User user = null;
+        if (!isOpen) {
+            open();
+        }
+        String sql = "SELECT * FROM user WHERE id = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, userId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            username = rs.getString("username");
+            email = rs.getString("email");
+            name = rs.getString("name");
+            isProfessor = rs.getBoolean("is_professor");
+            roleId = rs.getByte("role_id");
+            schoolId = rs.getByte("school_id");
+            user = new User(userId, email, name, username, isProfessor, roleId, schoolId);
+        }
+        return user;
     }
 }

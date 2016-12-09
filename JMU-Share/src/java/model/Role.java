@@ -8,16 +8,30 @@ package model;
  */
 public class Role {
     private String roleName;
+    private int roleId;
+
+    public Role(String roleName, int roleId) {
+        this.roleName = roleName;
+        this.roleId = roleId;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
     
     public Role(String roleName) {
         this.roleName = roleName;
     }
     
-    public String getRole() {
+    public String getRoleName() {
         return roleName;
     }
     
-    public void setRole(String roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
     

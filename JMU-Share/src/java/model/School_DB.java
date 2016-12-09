@@ -27,17 +27,11 @@ public class School_DB {
 
         if (!(checkIfSchoolExists(school))) {
             String schoolName;
-
             String insertSql = "INSERT INTO school VALUES(null, ?);";
-
             PreparedStatement ps = con.prepareStatement(insertSql);
-
             schoolName = school.getSchoolName();
-
             ps.setString(1, schoolName);
-
             ps.executeUpdate();
-
             schoolAdded = true;
         }
         return schoolAdded;

@@ -8,9 +8,23 @@ package model;
  */
 public class School {
     private String schoolName;
+    private int id;
     
     public School(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    School(int schoolId, String name) {
+        this.schoolName = name;
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public String getSchoolName() {

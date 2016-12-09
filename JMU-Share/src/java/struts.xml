@@ -43,7 +43,7 @@
             <result>/register.jsp</result>
         </action>
         <action name="LoginAction" class="action.LoginAction">
-            <result name="success">home.jsp</result>
+            <result name="success" type="redirectAction">home</result>
             <result name="input">login.jsp</result>
         </action>
         <action name="RegisterAction" class="action.RegisterAction">
@@ -58,7 +58,11 @@
             <result name="success">upload.jsp</result>
         </action>
         <action name="uploadToServer" class="action.Upload">
-            <result name="success">uploadComplete.jsp</result>
+            <result name="success">post.jsp?postId=%{postId}</result>
         </action>
+        <action name="profile" class="action.FetchProfile">
+            <result name="success">profile.jsp</result>
+        </action>
+        
     </package>
 </struts>

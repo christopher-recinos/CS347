@@ -1,25 +1,20 @@
 package action;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.interceptor.ParameterNameAware;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.Map;
 import javax.servlet.ServletContext;
-import model.ImageUpload_DB;
+import model.NotesImageFile_DB;
 import model.NotesImageFile;
 import model.Post;
 import model.Post_DB;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.SessionAware;
 
 /**
  * <code>Allows upload a file</code>
  */
-public class Upload extends ActionSupport implements SessionAware, ParameterNameAware {
+public class Upload extends FetchSessionAware {
 
     private File[] upload;
     private String[] uploadFileName;
@@ -30,9 +25,7 @@ public class Upload extends ActionSupport implements SessionAware, ParameterName
     private String notesDesc;
     private String title;
     private Integer classId;
-
-    //Make sure to use session and not some other name for it
-    private Map<String, Object> session;
+    private Integer postId;
     
     public String execute() throws Exception {
         File file;
@@ -52,8 +45,8 @@ public class Upload extends ActionSupport implements SessionAware, ParameterName
         //Create and add a new post to the database. The new post ID is returned
         Post newPost = new Post(authorId, classId, contentBody, rating, endorse, notesDesc, title);
         Post_DB dbPost = new Post_DB();
-        int newPostId = dbPost.insertPost(newPost);
-        newPost.setId(newPostId);
+        postId = dbPost.insertPost(newPost);
+        newPost.setId(postId);
 
         //Loop through this uploading the files
         for (int i = 0; i < upload.length; i++) {
@@ -61,16 +54,17 @@ public class Upload extends ActionSupport implements SessionAware, ParameterName
             if (chosenFile == null || !chosenFile.isFile()) {
                 break;
             }
-            file = new File(filePath, uploadFileName[i]);
-            InputStream input = new FileInputStream(upload[i]);
-            Files.copy(input, file.toPath());
-
-            //Then you need to add the image
+            //Create the image first but don't add it to the database
             NotesImageFile img = new NotesImageFile(uploadFileName[i], uploadContentType[i]);
             img.setPostId(newPost.getId());
 
+            
+            file = new File(filePath, img.getFileName());
+            InputStream input = new FileInputStream(upload[i]);
+            Files.copy(input, file.toPath());
+
             //must upload the post before the image
-            ImageUpload_DB db = new ImageUpload_DB();
+            NotesImageFile_DB db = new NotesImageFile_DB();
             db.insertImage(img);
         }
         return SUCCESS;
@@ -90,6 +84,14 @@ public class Upload extends ActionSupport implements SessionAware, ParameterName
          * ServletFileUpload(factory); // maximum file size to be uploaded.
          * uploader.setSizeMax(maxFileSize);
          */
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getNotesDesc() {
@@ -146,35 +148,5 @@ public class Upload extends ActionSupport implements SessionAware, ParameterName
 
     public void setUploadContentType(String[] uploadContentType) {
         this.uploadContentType = uploadContentType;
-    }
-
-    /**
-     * This allows access to the session so that the userId can be accessed
-     *
-     * @param session
-     */
-    @Override
-    public void setSession(Map<String, Object> session) {
-
-        this.session = session;
-    }
-
-    /**
-     * This stops the user from hacking the URL request parameters
-     *
-     * @param parameterName
-     * @return
-     */
-    @Override
-    public boolean acceptableParameterName(String parameterName) {
-
-        boolean allowedParameterName = true;
-
-        if (parameterName.contains("session") || parameterName.contains("request")) {
-
-            allowedParameterName = false;
-
-        }
-        return allowedParameterName;
     }
 }

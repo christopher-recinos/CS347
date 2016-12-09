@@ -8,12 +8,13 @@ package model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author greatwmc
  */
-public class ImageUpload_DB extends DBHandler {
+public class NotesImageFile_DB extends DBHandler {
 
     /**
      * Adds an image file location to the database
@@ -63,5 +64,29 @@ public class ImageUpload_DB extends DBHandler {
             e.printStackTrace();
         }
         return img;
+    }
+    
+    public ArrayList<NotesImageFile> getAllImagesForPostId(Integer postId) throws SQLException {
+        ArrayList<NotesImageFile> imageFileLocations = new ArrayList();
+        if (!isOpen) {
+            open();
+        }
+        String sql = "SELECT * FROM image WHERE post_id = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, postId);
+        String imgFullFilePath;
+        String contentType;
+        NotesImageFile newImg;
+        Integer imgId;
+        
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            imgFullFilePath = rs.getString("file_location");
+            contentType = rs.getString("content_type");
+            imgId = rs.getInt("id");
+            newImg = new NotesImageFile(imgId, imgFullFilePath, contentType);
+            imageFileLocations.add(newImg);
+        }
+        return imageFileLocations;
     }
 }

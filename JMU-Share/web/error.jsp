@@ -18,7 +18,6 @@
             <div id="header">
                 <jsp:include page='menubar.jsp'/>
             </div>
-
             <div id="content">
                 <div class="wrapper">
                     <div id='topContent'>

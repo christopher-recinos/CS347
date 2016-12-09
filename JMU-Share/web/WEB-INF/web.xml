@@ -44,7 +44,7 @@
         <description>Location to store uploaded file</description> 
         <param-name>file-upload</param-name> 
         <param-value>
-            /Users/greatwmc/NetBeansProjects/CS347/JMU-Share/uploads
+            /Users/greatwmc/NetBeansProjects/CS347/JMU-Share/uploads/
         </param-value> 
     </context-param>
 </web-app>

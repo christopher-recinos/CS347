@@ -103,6 +103,10 @@ div#footer {
     margin-top: 3px;
 }
 
+p.thick {
+    font-weight: bold;
+}
+
 
 .floating-box {
     display: inline-block;
